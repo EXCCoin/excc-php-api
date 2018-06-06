@@ -1,15 +1,15 @@
 <?php
 include __DIR__.'/../vendor/autoload.php';
 
-$testnet = \Decred\TestNet::instance();
+$testnet = \EXCCoin\TestNet::instance();
 
 // Generate seed for test net
-$seed = \Decred\Crypto\ExtendedKey::generateSeed($testnet);
+$seed = \EXCCoin\Crypto\ExtendedKey::generateSeed($testnet);
 
 echo sprintf("Seed hex: %s\n", bin2hex($seed));
 
 // Generate HD master key
-$master = \Decred\Crypto\ExtendedKey::newMaster($seed, $testnet);
+$master = \EXCCoin\Crypto\ExtendedKey::newMaster($seed, $testnet);
 
 echo sprintf("Master HD key: %s\n\n", $master);
 

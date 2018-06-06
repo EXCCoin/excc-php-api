@@ -1,6 +1,6 @@
-<?php namespace Decred\Rate;
+<?php namespace EXCCoin\Rate;
 
-use Decred\Rate;
+use EXCCoin\Rate;
 
 interface RateProviderInterface
 {

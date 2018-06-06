@@ -1,12 +1,12 @@
 {
-    "name": "decred/decred-php-api",
-    "description": "PHP API for the Decred Cryptocurrency",
+    "name": "EXCCoin/excc-php-api",
+    "description": "PHP API for the Exchangecoin Cryptocurrency",
     "license": "ISC",
-    "keywords": ["decred", "crypto", "dcr", "bitcoin"],
+    "keywords": ["exchangecoin", "excc", "crypto", "bitcoin"],
     "autoload": {
         "psr-4": {
-            "Decred\\": "src/Decred",
-            "Decred\\Tests\\": "tests"
+            "EXCCoin\\": "src/EXCCoin",
+            "EXCCoin\\Tests\\": "tests"
         }
     },
     "require": {

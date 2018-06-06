@@ -1,4 +1,4 @@
-<?php namespace Decred\Crypto;
+<?php namespace EXCCoin\Crypto;
 
 class Hash
 {

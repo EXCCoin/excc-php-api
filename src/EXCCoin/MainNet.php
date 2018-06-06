@@ -1,9 +1,9 @@
-<?php namespace Decred;
+<?php namespace EXCCoin;
 
-use Decred\Crypto\DecredNetwork;
-use Decred\Data\DataClient;
+use EXCCoin\Crypto\ExchangecoinNetwork;
+use EXCCoin\Data\DataClient;
 
-class MainNet extends DecredNetwork
+class MainNet extends ExchangecoinNetwork
 {
     const DATA_URL = "https://explorer.dcrdata.org";
 

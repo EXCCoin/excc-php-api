@@ -1,10 +1,10 @@
-<?php namespace Decred\Tests;
+<?php namespace EXCCoin\Tests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use Decred\Rate;
-use Decred\Rate\CoinMarketCap;
+use EXCCoin\Rate;
+use EXCCoin\Rate\CoinMarketCap;
 
 class RateTest extends TestCase
 {

@@ -1,9 +1,11 @@
-<?php namespace Decred\Rate;
+<?php namespace EXCCoin\Rate;
 
 use GuzzleHttp\Client;
-use Decred\Rate;
+use EXCCoin\Rate;
 
 /**
+ * TODO: Change for EXCC when listed on coinmarketcap & rewrite to API v2 (or replace with UCCL)
+ *
  * Used for retrieving exchange rate from coin market cap website.
  */
 class CoinMarketCap implements RateProviderInterface

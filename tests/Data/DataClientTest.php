@@ -1,8 +1,8 @@
-<?php namespace Decred\Tests\Data;
+<?php namespace EXCCoin\Tests\Data;
 
-use Decred\Data\DataClient;
-use Decred\Data\Transaction;
-use Decred\TestNet;
+use EXCCoin\Data\DataClient;
+use EXCCoin\Data\Transaction;
+use EXCCoin\TestNet;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;

@@ -1,10 +1,10 @@
-<?php namespace Decred\Tests\Crypto;
+<?php namespace EXCCoin\Tests\Crypto;
 
-use Decred\Crypto\ExtendedKey;
-use Decred\Crypto\NetworkFactory;
-use Decred\Data\DataClient;
-use Decred\MainNet;
-use Decred\TestNet;
+use EXCCoin\Crypto\ExtendedKey;
+use EXCCoin\Crypto\NetworkFactory;
+use EXCCoin\Data\DataClient;
+use EXCCoin\MainNet;
+use EXCCoin\TestNet;
 use PHPUnit\Framework\TestCase;
 
 class NetworkTest extends TestCase

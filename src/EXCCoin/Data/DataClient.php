@@ -1,4 +1,4 @@
-<?php namespace Decred\Data;
+<?php namespace EXCCoin\Data;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

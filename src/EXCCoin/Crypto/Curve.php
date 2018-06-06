@@ -1,4 +1,4 @@
-<?php namespace Decred\Crypto;
+<?php namespace EXCCoin\Crypto;
 
 use Mdanter\Ecc\EccFactory;
 use Mdanter\Ecc\Primitives\CurveFpInterface;

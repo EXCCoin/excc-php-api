@@ -1,8 +1,8 @@
-<?php namespace Decred\Tests\Mock;
+<?php namespace EXCCoin\Tests\Mock;
 
-use Decred\Crypto\DecredNetwork;
+use EXCCoin\Crypto\ExchangecoinNetwork;
 
-class GeneralNetwork extends DecredNetwork
+class GeneralNetwork extends ExchangecoinNetwork
 {
     const HD_PUBLIC_KEY     = "\x04\x88\xb2\x1e"; // xpub
     const HD_PRIVATE_KEY    = "\x04\x88\xad\xe4"; // xprv

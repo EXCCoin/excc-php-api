@@ -1,4 +1,4 @@
-<?php namespace Decred\Crypto\Blake;
+<?php namespace EXCCoin\Crypto\Blake;
 
 class State256 extends AbstractState
 {

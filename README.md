@@ -1,16 +1,12 @@
-# Decred PHP API
+# EXCC (ExchangeCoin) PHP API
 
-[![Build Status](https://api.travis-ci.org/decred/decred-php-api.svg?branch=master)](https://travis-ci.org/decred/decred-php-api)
-<!--[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/decred/decred-php-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/decred/decred-php-api/?branch=master)-->
-<!--[![Code Coverage](https://scrutinizer-ci.com/g/decred/decred-php-api/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/decred/decred-php-api/?branch=master)-->
-
-PHP API for the [Decred](https://decred.org) Cryptocurrency
+PHP API for the [ExchangeCoin](https://excc.co) Cryptocurrency
 
 ## Installation
 
 Add composer package to your project
 ```bash
-composer require decred/decred-php-api
+composer require EXCCoin/excc-php-api
 ```
 
 Make sure [GMP PHP extesion](http://php.net/manual/en/book.gmp.php) is installed. In ubuntu:
@@ -22,7 +18,7 @@ sudo apt install php7.0-gmp
 
 You also can clone git package with
 ```bash
-git clone https://github.com/decred/decred-php-api.git
+git clone https://github.com/EXCCoin/excc-php-api.git
 ```
 
 But still you will need to fetch library dependencies with [composer](https://getcomposer.org/doc/00-intro.md).
@@ -44,19 +40,19 @@ Library have wide functionality, so you could find usage exmaples in `examples` 
 First of all we need to get Network intance to start working with library.
 
 ```php
-$testnet = \Decred\TestNet::instance();
+$testnet = \EXCCoin\TestNet::instance();
 ```
 
 And mainnet accordingly
 ```php
-$mainnet = \Decred\MainNet::instance();
+$mainnet = \EXCCoin\MainNet::instance();
 ```
 
 Now lets generate a seed, that will be also verified for usage on testnet.
 Defaut account and branch address will be derivded to verify the seed.
 
 ```php
-$seed = \Decred\Crypto\ExtendedKey::generateSeed($testnet);
+$seed = \EXCCoin\Crypto\ExtendedKey::generateSeed($testnet);
 ```
 
 ### HD Wallets
@@ -64,7 +60,7 @@ $seed = \Decred\Crypto\ExtendedKey::generateSeed($testnet);
 When we have usable seed we can create HD master key.
 
 ```php
-$master = \Decred\Crypto\ExtendedKey::newMaster($seed, $testnet);
+$master = \EXCCoin\Crypto\ExtendedKey::newMaster($seed, $testnet);
 ```
 
 `newMaster` method will return `ExtendedKey` object, that have variant API for working with HD wallets.

@@ -1,6 +1,6 @@
-<?php namespace Decred\Crypto;
+<?php namespace EXCCoin\Crypto;
 
-use Decred\Data\DataClient;
+use EXCCoin\Data\DataClient;
 
 interface NetworkInterface
 {

@@ -1,4 +1,4 @@
-<?php namespace Decred\Data;
+<?php namespace EXCCoin\Data;
 
 class Transaction
 {

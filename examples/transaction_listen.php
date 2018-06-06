@@ -10,7 +10,7 @@ $address = $argv[1];
 $stop = false;
 
 // Get network to work with
-$network = \Decred\TestNet::instance();
+$network = \EXCCoin\TestNet::instance();
 
 // Get dcrdata API client
 $client = $network->getDataClient();

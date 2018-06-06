@@ -1,4 +1,4 @@
-<?php namespace Decred\Crypto;
+<?php namespace EXCCoin\Crypto;
 
 /**
  */
@@ -15,6 +15,7 @@ class ExtendedKey
     const BIP44_PURPOSE = 44;
 
     /**
+     * TODO: Change to EXCC type index
      * Decred coin type index
      */
     const DECRED_COIN_TYPE = 20;
@@ -197,7 +198,7 @@ class ExtendedKey
     {
         //   version (4) || depth (1) || parent fingerprint (4) ||
         //   child num (4) || chain code (32) || key data (33) || checksum (4)
-        $payload = DecredNetwork::extendedKeyBase58Decode($key);
+        $payload = ExchangecoinNetwork::extendedKeyBase58Decode($key);
         $network = NetworkFactory::fromExtendedKeyVersion(substr($payload, 0, 4));
         $depth = intval(hexdec(substr($payload, 4, 1)));
         $parentFP = substr($payload, 5, 4);

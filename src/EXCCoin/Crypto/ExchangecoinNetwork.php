@@ -1,6 +1,6 @@
-<?php namespace Decred\Crypto;
+<?php namespace EXCCoin\Crypto;
 
-abstract class DecredNetwork implements NetworkInterface
+abstract class ExchangecoinNetwork implements NetworkInterface
 {
     static $base58;
 

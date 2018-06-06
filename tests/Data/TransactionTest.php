@@ -1,6 +1,6 @@
-<?php namespace Decred\tests\Data;
+<?php namespace EXCCoin\tests\Data;
 
-use Decred\Data\Transaction;
+use EXCCoin\Data\Transaction;
 use PHPUnit\Framework\TestCase;
 
 class TransactionTest extends TestCase

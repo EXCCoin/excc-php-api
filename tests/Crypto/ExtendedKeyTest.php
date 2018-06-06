@@ -1,10 +1,10 @@
-<?php namespace Decred\Tests\Crypto;
+<?php namespace EXCCoin\Tests\Crypto;
 
-use Decred\TestNet;
-use Decred\Tests\Mock\GeneralNetwork;
+use EXCCoin\TestNet;
+use EXCCoin\Tests\Mock\GeneralNetwork;
 use PHPUnit\Framework\TestCase;
-use Decred\Crypto\ExtendedKey;
-use Decred\MainNet;
+use EXCCoin\Crypto\ExtendedKey;
+use EXCCoin\MainNet;
 
 class ExtendedKeyTest extends TestCase
 {

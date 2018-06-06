@@ -1,7 +1,7 @@
-<?php namespace Decred\Crypto;
+<?php namespace EXCCoin\Crypto;
 
-use Decred\MainNet;
-use Decred\TestNet;
+use EXCCoin\MainNet;
+use EXCCoin\TestNet;
 
 class NetworkFactory
 {

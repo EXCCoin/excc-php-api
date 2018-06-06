@@ -1,5 +1,5 @@
 <?php
-use Decred\Crypto\Blake\State256;
+use EXCCoin\Crypto\Blake\State256;
 include __DIR__.'/../vendor/autoload.php';
 
 if (count($argv) < 2 || !is_string($argv[1])) {

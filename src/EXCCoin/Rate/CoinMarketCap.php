@@ -54,6 +54,7 @@ class CoinMarketCap implements RateProviderInterface
      * @param string $currency
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getPrice($currency = self::DEFAULT_CURRENCY)
     {
@@ -71,6 +72,7 @@ class CoinMarketCap implements RateProviderInterface
      * @param string $url
      *
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function request($url)
     {

@@ -1,5 +1,7 @@
 <?php namespace EXCCoin\Crypto;
 
+use StephenHill\Base58;
+
 abstract class ExchangecoinNetwork implements NetworkInterface
 {
     static $base58;
@@ -7,17 +9,19 @@ abstract class ExchangecoinNetwork implements NetworkInterface
     const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 
     /**
-     * @return \StephenHill\Base58
+     * @return Base58
+     * @throws \Exception If neither bcmath nor gmp is installed.
      */
     public static function base58()
     {
         if (!static::$base58) {
-            static::$base58 = new \StephenHill\Base58(static::ALPHABET);
+            static::$base58 = new Base58(static::ALPHABET);
         }
 
         return static::$base58;
     }
 
+    /** @noinspection PhpDocMissingThrowsInspection */
     /**
      * Decode encrypted key and verify the checksum.
      *
@@ -29,6 +33,7 @@ abstract class ExchangecoinNetwork implements NetworkInterface
     {
         // The base58-decoded extended key must consist of a serialized payload
         // plus an additional 4 bytes for the checksum.
+        /** @noinspection PhpUnhandledExceptionInspection */
         $decoded = static::base58()->decode($key);
 
         if (strlen($decoded) !== 82) {
@@ -57,6 +62,7 @@ abstract class ExchangecoinNetwork implements NetworkInterface
     {
         $prefix = $this->HDPubKeyHashAddrId();
         $payload = $prefix.hash('ripemd160', $this->hashKey256($key), true);
+        /** @noinspection PhpUnhandledExceptionInspection */
         return $this->base58()->encode($payload.$this->base58Checksum($payload));
     }
 
@@ -73,6 +79,7 @@ abstract class ExchangecoinNetwork implements NetworkInterface
      */
     public function base58EncodeChecksum($payload)
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         return $this->base58()->encode($payload.$this->base58Checksum($payload));
     }
 

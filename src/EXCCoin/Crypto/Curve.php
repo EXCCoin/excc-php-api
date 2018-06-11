@@ -94,9 +94,9 @@ class Curve
     /**
      * Is key on the secp256k1 curve.
      *
-     * @param string $key
-     *
-     * @return bool
+     * @param string                      $key
+     * @throws \InvalidArgumentException
+     * @return void
      */
     public static function ensureOnCurve($key)
     {

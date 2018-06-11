@@ -1,6 +1,5 @@
 <?php namespace EXCCoin\Tests\Crypto;
 
-use EXCCoin\TestNet;
 use EXCCoin\Tests\Mock\GeneralNetwork;
 use PHPUnit\Framework\TestCase;
 use EXCCoin\Crypto\ExtendedKey;

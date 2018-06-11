@@ -109,10 +109,11 @@ class ExtendedKey
     /**
      * Generate verified usable seed.
      *
-     * @param NetworkInterface  $network
-     * @param int               $length
+     * @param NetworkInterface $network
+     * @param int              $length
      *
      * @return mixed
+     * @throws \Exception If an appropriate source of randomness cannot be found.
      */
     public static function generateSeed(NetworkInterface $network, $length = self::RECOMMENDED_SEED_BYTES)
     {

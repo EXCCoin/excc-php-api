@@ -1,9 +1,10 @@
 <?php namespace EXCCoin\Tests\Crypto;
 
+use EXCCoin\Crypto\Hash;
 use PHPUnit\Framework\TestCase;
 
 function blake256 ($string) {
-    return \EXCCoin\Crypto\Hash::blake($string);
+    return Hash::blake($string);
 }
 
 class BlakeTest extends TestCase

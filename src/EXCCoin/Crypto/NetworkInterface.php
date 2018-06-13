@@ -3,6 +3,7 @@
 use EXCCoin\Client\Chain;
 use EXCCoin\Client\Data as DataClient;
 use EXCCoin\Client\Chain as ChainClient;
+use EXCCoin\Client\Notifier as NotifierClient;
 
 interface NetworkInterface
 {
@@ -45,6 +46,11 @@ interface NetworkInterface
      * @return null|ChainClient
      */
     public function getChainClient($username, $password);
+
+    /**
+     * @return null|NotifierClient
+     */
+    public function getNotifierClient();
 
     /**
      * Get base58 encoded extended key address.

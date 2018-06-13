@@ -107,9 +107,9 @@ trait CallsRPC
     }
 
     /**
-     * Does the HTTP GET request and returns received data as array.
+     * Does the HTTP(S) GET request and returns received data as array.
      *
-     * @param string        $path
+     * @param string       $path
      * @return array|false
      */
     protected function get($path)
@@ -117,6 +117,35 @@ trait CallsRPC
         try {
             /** @noinspection PhpParamsInspection */
             $result = @json_decode($this->guzzle->get($path)->getBody(), true);
+
+            if ($result === null || $result === false) {
+                $this->lastError = sprintf("JSON parse error: %s", json_last_error_msg());
+                return false;
+            }
+
+            return $result;
+        } catch (\Exception $e) {
+            $this->lastError = sprintf("Connection error: %s", $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Does the HTTP(S) POST request and returns received data as array.
+     *
+     * @param string       $path
+     * @param array        $data
+     * @return array|false
+     */
+    protected function post($path, $data = [])
+    {
+        try {
+            /** @noinspection PhpParamsInspection */
+            $response = $this->guzzle->post($path, [
+                RequestOptions::JSON => $data,
+            ]);
+
+            $result = @json_decode($response->getBody(), true);
 
             if ($result === null || $result === false) {
                 $this->lastError = sprintf("JSON parse error: %s", json_last_error_msg());

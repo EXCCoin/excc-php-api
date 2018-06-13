@@ -19,6 +19,11 @@ class GeneralNetwork extends ExchangecoinNetwork
         return null;
     }
 
+    public function getNotifierClient()
+    {
+        return null;
+    }
+
     public static function instance()
     {
         return new static();

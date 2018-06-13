@@ -3,11 +3,13 @@
 use EXCCoin\Crypto\ExchangecoinNetwork;
 use EXCCoin\Client\Data as DataClient;
 use EXCCoin\Client\Chain as ChainClient;
+use EXCCoin\Client\Notifier as NotifierClient;
 
 class TestNet extends ExchangecoinNetwork
 {
     const DATA_URL = "https://testnet.dcrdata.org";
     const CHAIN_URL = "https://localhost:19109";
+    const NOTIFIER_URL = "http://localhost:19119";
 
     const HD_PUBLIC_KEY_ID      = "\x04\x35\x87\xd1"; // tpub
     const HD_PRIVATE_KEY_ID     = "\x04\x35\x83\x97"; // tprv
@@ -54,5 +56,13 @@ class TestNet extends ExchangecoinNetwork
     public function getChainClient($username, $password)
     {
         return new ChainClient(self::CHAIN_URL, ['auth' => [$username, $password]]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getNotifierClient()
+    {
+        return new NotifierClient(self::NOTIFIER_URL);
     }
 }

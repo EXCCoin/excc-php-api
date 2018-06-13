@@ -1,6 +1,8 @@
 <?php namespace EXCCoin\Crypto;
 
-use EXCCoin\Data\DataClient;
+use EXCCoin\Client\Chain;
+use EXCCoin\Client\Data as DataClient;
+use EXCCoin\Client\Chain as ChainClient;
 
 interface NetworkInterface
 {
@@ -36,6 +38,13 @@ interface NetworkInterface
      * @return DataClient
      */
     public function getDataClient();
+
+    /**
+     * @param string                      $username
+     * @param string                      $password
+     * @return null|ChainClient
+     */
+    public function getChainClient($username, $password);
 
     /**
      * Get base58 encoded extended key address.

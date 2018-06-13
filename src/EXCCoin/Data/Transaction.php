@@ -14,7 +14,7 @@ class Transaction
      */
     public function __construct(array $data)
     {
-        if (!isset($data['txid']) || !isset($data['time'])) {
+        if (!isset($data['txid'])) {
             throw new \RuntimeException('Wrong transaction data!');
         }
 
@@ -47,7 +47,7 @@ class Transaction
     }
 
     /**
-     * @return false|string
+     * @return string
      */
     public function getTxid()
     {
@@ -55,10 +55,14 @@ class Transaction
     }
 
     /**
-     * @return \DateTime
+     * @return null|\DateTime
      */
     public function getTime()
     {
+        if (!isset($this->data['time'])) {
+            return null;
+        }
+
         $time = new \DateTime();
         $time->setTimestamp($this->data['time']);
         return $time;

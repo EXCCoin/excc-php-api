@@ -2,7 +2,8 @@
 
 use EXCCoin\Crypto\ExtendedKey;
 use EXCCoin\Crypto\NetworkFactory;
-use EXCCoin\Data\DataClient;
+use EXCCoin\Client\Data as DataClient;
+use EXCCoin\Client\Chain as ChainClient;
 use EXCCoin\MainNet;
 use EXCCoin\TestNet;
 use PHPUnit\Framework\TestCase;
@@ -32,10 +33,16 @@ class NetworkTest extends TestCase
         $dataClient = $testnet->getDataClient();
         $this->assertInstanceOf(DataClient::class, $dataClient);
 
+        $chainClient = $testnet->getChainClient('user', 'password');
+        $this->assertInstanceOf(ChainClient::class, $chainClient);
+
         $mainnet = MainNet::instance();
 
         $dataClient = $mainnet->getDataClient();
         $this->assertInstanceOf(DataClient::class, $dataClient);
+
+        $chainClient = $mainnet->getChainClient('user', 'password');
+        $this->assertInstanceOf(ChainClient::class, $chainClient);
     }
 
     public function test_network_factory_exception()

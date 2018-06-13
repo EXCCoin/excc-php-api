@@ -1,11 +1,13 @@
 <?php namespace EXCCoin;
 
 use EXCCoin\Crypto\ExchangecoinNetwork;
-use EXCCoin\Data\DataClient;
+use EXCCoin\Client\Data as DataClient;
+use EXCCoin\Client\Chain as ChainClient;
 
 class MainNet extends ExchangecoinNetwork
 {
     const DATA_URL = "https://explorer.dcrdata.org";
+    const CHAIN_URL = "https://localhost:9109";
 
     const HD_PUBLIC_KEY_ID      = "\x02\xfd\xa9\x26"; // dpub
     const HD_PRIVATE_KEY_ID     = "\x02\xfd\xa4\xe8"; // dprv
@@ -38,10 +40,19 @@ class MainNet extends ExchangecoinNetwork
     }
 
     /**
-     * @return DataClient
+     * @param string                $url
+     * @return \EXCCoin\Client\Data
      */
-    public function getDataClient()
+    public function getDataClient($url = self::DATA_URL)
     {
-        return new DataClient(static::DATA_URL);
+        return new DataClient($url);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getChainClient($username, $password)
+    {
+        return new ChainClient(self::CHAIN_URL, ['auth' => [$username, $password]]);
     }
 }

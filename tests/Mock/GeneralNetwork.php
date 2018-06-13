@@ -14,6 +14,11 @@ class GeneralNetwork extends ExchangecoinNetwork
         return null;
     }
 
+    public function getChainClient($username, $password)
+    {
+        return null;
+    }
+
     public static function instance()
     {
         return new static();

@@ -1,19 +1,13 @@
 <?php namespace EXCCoin\Tests\Data;
 
-use EXCCoin\Data\DataClient;
+use EXCCoin\Client\Data as DataClient;
 use EXCCoin\Data\Transaction;
-use EXCCoin\TestNet;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
+use EXCCoin\Tests\Traits\MocksClient;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 
 class DataClientTest extends TestCase
 {
-    /**
-     * @var Client|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $httpMock;
+    use MocksClient;
 
     /**
      * @var DataClient
@@ -24,11 +18,7 @@ class DataClientTest extends TestCase
     {
         parent::setUp();
 
-        $this->httpMock = $this->getMockBuilder(Client::class)
-            ->setMethods(['request'])
-            ->getMock();
-        $this->client = new DataClient(null);
-        $this->client->setGuzzle($this->httpMock);
+        $this->setUpClientMocking(new DataClient(null));
     }
 
     public function test_address_raw()
@@ -58,15 +48,5 @@ class DataClientTest extends TestCase
             ->willThrowException(new \Exception());
 
         $this->assertEquals(false, $this->client->getAddressRaw('TseQDDfk4xDvz2R92cexf1WaAvUGXEfRJ75'));
-    }
-
-    /**
-     * @param string $filename
-     *
-     * @return array
-     */
-    protected function getFixtureJson($filename)
-    {
-        return new Response(200, [], file_get_contents(__DIR__.'/../fixtures/dataclient/'.$filename));
     }
 }

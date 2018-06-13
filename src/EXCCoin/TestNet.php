@@ -51,18 +51,22 @@ class TestNet extends ExchangecoinNetwork
     }
 
     /**
-     * @inheritdoc
+     * @param string            $username
+     * @param string            $password
+     * @param string            $url
+     * @return null|ChainClient
      */
-    public function getChainClient($username, $password)
+    public function getChainClient($username, $password, $url = self::CHAIN_URL)
     {
-        return new ChainClient(self::CHAIN_URL, ['auth' => [$username, $password]]);
+        return new ChainClient($url, ['auth' => [$username, $password]]);
     }
 
     /**
-     * @inheritdoc
+     * @param string               $url
+     * @return null|NotifierClient
      */
-    public function getNotifierClient()
+    public function getNotifierClient($url = self::NOTIFIER_URL)
     {
-        return new NotifierClient(self::NOTIFIER_URL);
+        return new NotifierClient($url);
     }
 }

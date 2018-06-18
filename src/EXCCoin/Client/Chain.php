@@ -163,4 +163,51 @@ class Chain
 
         return $result;
     }
+
+    /**
+     * Signs RawTransaction using given keys.
+     * NOTE: This is using the not yet released RPC method.
+     * TODO: Replace this with signing implementation in PHP.
+     *
+     * @param RawTransaction        $rawTransaction
+     * @param string[]              $keys
+     * @return false|RawTransaction
+     */
+    public function signRawTransaction(RawTransaction $rawTransaction, array $keys)
+    {
+        $result = false;
+
+        $response = $this->request('signrawtxwith',
+            [$rawTransaction->getHexData(), $keys]);
+
+        if ($response !== false && is_array($response)
+            && isset($response['hex']) && isset($response['complete'])) {
+            if ($response['complete']) {
+                $result = new RawTransaction($response['hex']);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Broadcasts given RawTransaction to network.
+     *
+     * @param RawTransaction $rawTransaction
+     * @param bool           $allowHighFees
+     * @return false|string
+     */
+    public function sendRawTransaction(RawTransaction $rawTransaction, $allowHighFees = false)
+    {
+        $result = false;
+
+        $response = $this->request('sendrawtransaction',
+            [$rawTransaction->getHexData(), $allowHighFees]);
+
+        if ($response !== false && is_string($response)) {
+            $result = $response;
+        }
+
+        return $result;
+    }
 }

@@ -140,7 +140,7 @@ class Chain
     }
 
     /**
-     * Returns new (unsigned!) transaction containing requested inputs and outputs.
+     * Returns new (unsigned!) RawTransaction containing requested inputs and outputs.
      *
      * @param array             $inputs UTXOs array in form of
      *                                  [['txid' => $txId, 'vout' => $vOut],

@@ -19,6 +19,26 @@ class Chain
     use CallsRPC;
 
     /**
+     * Estimates minimum fee per kB needed for transaction
+     * to be included in next $numBlocks blocks.
+     *
+     * @param int $numBlocks
+     * @return false|int
+     */
+    public function getFeeEstimate($numBlocks = 1)
+    {
+        $result = false;
+
+        $response = $this->request('estimatefee', [$numBlocks]);
+
+        if ($response !== false && is_double($response)) {
+            $result = intval(round($response * 1e8));
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns requested transaction.
      *
      * @param string            $transactionHash

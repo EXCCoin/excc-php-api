@@ -36,6 +36,11 @@ interface NetworkInterface
     public function HDPubKeyHashAddrId();
 
     /**
+     * @return string
+     */
+    public function WIFPrivKeyId();
+
+    /**
      * @return DataClient
      */
     public function getDataClient();
@@ -60,6 +65,14 @@ interface NetworkInterface
      * @return string
      */
     public function base58EncodeAddress($key);
+
+    /**
+     * Get base58 encoded private key.
+     *
+     * @param string $key
+     * @return string
+     */
+    public function base58EncodePrivateKey($key);
 
     /**
      * Get base58 encoded payload + 4 bytes checksum of payload.

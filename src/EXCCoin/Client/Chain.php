@@ -134,6 +134,8 @@ class Chain
             foreach ($response as $transactionData) {
                 $result[] = new Transaction($transactionData);
             }
+        } elseif ($this->getLastCode() === -32603) {
+            $result = [];
         }
 
         return $result;

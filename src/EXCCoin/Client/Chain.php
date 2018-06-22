@@ -126,7 +126,7 @@ class Chain
         $result = false;
 
         $response = $this->request('searchrawtransactions',
-            [$address, true, $skip, $count]);
+            [$address, 1, $skip, $count]);
 
         if ($response !== false && is_array($response)) {
             $result = [];

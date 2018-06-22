@@ -13,6 +13,7 @@ use EXCCoin\Data\Block;
 use EXCCoin\Data\BlockHeader;
 use EXCCoin\Data\RawTransaction;
 use EXCCoin\Data\Transaction;
+use EXCCoin\Data\VOut;
 
 class Chain
 {
@@ -228,6 +229,36 @@ class Chain
 
         if ($response !== false && is_string($response)) {
             $result = $response;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns unspent VOut. If given VOut was already spend,
+     * returns null.
+     *
+     * @param $txId
+     * @param $index
+     * @return false|VOut|null
+     */
+    public function getUnspentVOut($txId, $index)
+    {
+        $result = false;
+
+        $response = $this->request('gettxout',
+            [$txId, $index, true]);
+
+        if ($response !== false) {
+            if (is_null($response)) {
+                $result = null;
+            }elseif (is_array($response)) {
+                if (!isset($response['n'])) {
+                    $response['n'] = $index;
+                }
+
+                $result = new VOut($response);
+            }
         }
 
         return $result;

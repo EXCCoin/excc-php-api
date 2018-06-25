@@ -79,4 +79,38 @@ class Transaction
 
         return 0;
     }
+
+    /**
+     * @return int
+     */
+    public function countVIns()
+    {
+        return count($this->data['vin']);
+    }
+
+    /**
+     * @param $index
+     * @return null|VIn
+     */
+    public function getVIn($index)
+    {
+        if (!isset($this->data['vin'][$index])) {
+            return null;
+        }
+
+        return new VIn($this->data['vin'][$index]);
+    }
+
+    /**
+     * @param $index
+     * @return null|VOut
+     */
+    public function getVOut($index)
+    {
+        if (!isset($this->data['vout'][$index])) {
+            return null;
+        }
+
+        return new VOut($this->data['vout'][$index]);
+    }
 }

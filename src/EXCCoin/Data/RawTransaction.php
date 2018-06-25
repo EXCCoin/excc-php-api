@@ -25,8 +25,27 @@ class RawTransaction
         $this->data = $data;
     }
 
+    /**
+     * @return string
+     */
     public function getHexData()
     {
         return $this->data;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize()
+    {
+        return intval(strlen($this->data) / 2);
+    }
+
+    /**
+     * @return int
+     */
+    public function getSizeInKB()
+    {
+        return intval(ceil($this->getSize() / 1024.));
     }
 }

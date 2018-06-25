@@ -4,9 +4,10 @@ use EXCCoin\Crypto\ExchangecoinNetwork;
 
 class GeneralNetwork extends ExchangecoinNetwork
 {
-    const HD_PUBLIC_KEY     = "\x04\x88\xb2\x1e"; // xpub
-    const HD_PRIVATE_KEY    = "\x04\x88\xad\xe4"; // xprv
-    const PUB_KEY_HASH_ADDR_ID  = "\x0f\x21";     // Ts
+    const HD_PUBLIC_KEY         = "\x04\x88\xb2\x1e"; // xpub
+    const HD_PRIVATE_KEY        = "\x04\x88\xad\xe4"; // xprv
+    const PUB_KEY_HASH_ADDR_ID  = "\x0f\x21";         // Ts
+    const WIF_PRIVATE_KEY_ID    = "\x23\x0e";         // Pt
 
 
     public function getDataClient()
@@ -43,5 +44,10 @@ class GeneralNetwork extends ExchangecoinNetwork
     public function HDPubKeyHashAddrId()
     {
         return static::PUB_KEY_HASH_ADDR_ID;
+    }
+
+    public function WIFPrivKeyId()
+    {
+        return self::WIF_PRIVATE_KEY_ID;
     }
 }

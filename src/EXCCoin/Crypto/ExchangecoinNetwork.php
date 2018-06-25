@@ -69,6 +69,17 @@ abstract class ExchangecoinNetwork implements NetworkInterface
     /**
      * @inheritdoc
      */
+    public function base58EncodePrivateKey($key)
+    {
+        $payload = $this->WIFPrivKeyId()."\x00".$key;
+        $checksum = substr($this->hashKey256($payload), 0, 4);
+
+        return $this->base58()->encode($payload.$checksum);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function hashKey256($key)
     {
         return hex2bin(Hash::blake($key));

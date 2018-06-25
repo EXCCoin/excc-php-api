@@ -14,6 +14,7 @@ class TestNet extends ExchangecoinNetwork
     const HD_PUBLIC_KEY_ID      = "\x04\x35\x87\xd1"; // tpub
     const HD_PRIVATE_KEY_ID     = "\x04\x35\x83\x97"; // tprv
     const PUB_KEY_HASH_ADDR_ID  = "\x0f\x21"; // Ts
+    const WIF_PRIVATE_KEY_ID    = "\x23\x0e"; // Pt
 
     /**
      * @return TestNet
@@ -39,6 +40,14 @@ class TestNet extends ExchangecoinNetwork
     public function HDPubKeyHashAddrId()
     {
         return self::PUB_KEY_HASH_ADDR_ID;
+    }
+
+    /**
+     * @return string
+     */
+    public function WIFPrivKeyId()
+    {
+        return self::WIF_PRIVATE_KEY_ID;
     }
 
     /**

@@ -18,7 +18,7 @@ class ExtendedKey
      * TODO: Change to EXCC type index
      * Decred coin type index
      */
-    const DECRED_COIN_TYPE = 20;
+    const DECRED_COIN_TYPE = 42;
 
     // ExternalBranch is the child number to use when performing BIP0044
     // style hierarchical deterministic key derivation for the external

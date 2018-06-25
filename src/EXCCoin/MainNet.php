@@ -14,6 +14,7 @@ class MainNet extends ExchangecoinNetwork
     const HD_PUBLIC_KEY_ID      = "\x02\xfd\xa9\x26"; // dpub
     const HD_PRIVATE_KEY_ID     = "\x02\xfd\xa4\xe8"; // dprv
     const PUB_KEY_HASH_ADDR_ID  = "\x07\x3f"; // Ds
+    const WIF_PRIVATE_KEY_ID    = "\x22\xde"; // Pm
 
     /**
      * @return MainNet
@@ -39,6 +40,14 @@ class MainNet extends ExchangecoinNetwork
     public function HDPubKeyHashAddrId()
     {
         return self::PUB_KEY_HASH_ADDR_ID;
+    }
+
+    /**
+     * @return string
+     */
+    public function WIFPrivKeyId()
+    {
+        return self::WIF_PRIVATE_KEY_ID;
     }
 
     /**

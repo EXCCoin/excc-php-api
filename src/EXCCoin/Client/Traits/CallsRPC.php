@@ -20,7 +20,12 @@ trait CallsRPC
     /**
      * @var string
      */
-    protected $lastError;
+    protected $lastErrorMsg;
+
+    /**
+     * @var int
+     */
+    protected $lastErrorCode;
 
     /**
      * @var int
@@ -60,7 +65,17 @@ trait CallsRPC
      */
     public function getLastError()
     {
-        return $this->lastError;
+        return $this->lastErrorMsg;
+    }
+
+    /**
+     * Returns last error code.
+     *
+     * @return int
+     */
+    public function getLastCode()
+    {
+        return $this->lastErrorCode;
     }
 
     /**
@@ -88,12 +103,13 @@ trait CallsRPC
             $result = @json_decode($body, true);
 
             if ($result === null || $result === false) {
-                $this->lastError = sprintf("JSON parse error: %s", json_last_error_msg());
+                $this->lastErrorMsg = sprintf("JSON parse error: %s", json_last_error_msg());
                 return false;
             }
 
             if ($result['error']) {
-                $this->lastError = sprintf("JSON-RPC error %d: %s",
+                $this->lastErrorCode = intval($result['error']['code']);
+                $this->lastErrorMsg = sprintf("JSON-RPC error %d: %s",
                     $result['error']['code'], $result['error']['message']);
                 return false;
             }
@@ -101,7 +117,7 @@ trait CallsRPC
 
             return $result['result'];
         } catch (GuzzleException $e) {
-            $this->lastError = sprintf("Connection error: %s", $e->getMessage());
+            $this->lastErrorMsg = sprintf("Connection error: %s", $e->getMessage());
             return false;
         }
     }
@@ -119,13 +135,13 @@ trait CallsRPC
             $result = @json_decode($this->guzzle->get($path)->getBody(), true);
 
             if ($result === null || $result === false) {
-                $this->lastError = sprintf("JSON parse error: %s", json_last_error_msg());
+                $this->lastErrorMsg = sprintf("JSON parse error: %s", json_last_error_msg());
                 return false;
             }
 
             return $result;
         } catch (\Exception $e) {
-            $this->lastError = sprintf("Connection error: %s", $e->getMessage());
+            $this->lastErrorMsg = sprintf("Connection error: %s", $e->getMessage());
             return false;
         }
     }
@@ -148,13 +164,13 @@ trait CallsRPC
             $result = @json_decode($response->getBody(), true);
 
             if ($result === null || $result === false) {
-                $this->lastError = sprintf("JSON parse error: %s", json_last_error_msg());
+                $this->lastErrorMsg = sprintf("JSON parse error: %s", json_last_error_msg());
                 return false;
             }
 
             return $result;
         } catch (\Exception $e) {
-            $this->lastError = sprintf("Connection error: %s", $e->getMessage());
+            $this->lastErrorMsg = sprintf("Connection error: %s", $e->getMessage());
             return false;
         }
     }

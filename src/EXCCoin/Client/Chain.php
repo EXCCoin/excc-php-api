@@ -13,10 +13,31 @@ use EXCCoin\Data\Block;
 use EXCCoin\Data\BlockHeader;
 use EXCCoin\Data\RawTransaction;
 use EXCCoin\Data\Transaction;
+use EXCCoin\Data\VOut;
 
 class Chain
 {
     use CallsRPC;
+
+    /**
+     * Estimates minimum fee per kB needed for transaction
+     * to be included in next $numBlocks blocks.
+     *
+     * @param int $numBlocks
+     * @return false|int
+     */
+    public function getFeeEstimate($numBlocks = 1)
+    {
+        $result = false;
+
+        $response = $this->request('estimatefee', [$numBlocks]);
+
+        if ($response !== false && is_double($response)) {
+            $result = intval(round($response * 1e8));
+        }
+
+        return $result;
+    }
 
     /**
      * Returns requested transaction.
@@ -106,7 +127,7 @@ class Chain
         $result = false;
 
         $response = $this->request('searchrawtransactions',
-            [$address, true, $skip, $count]);
+            [$address, 1, $skip, $count]);
 
         if ($response !== false && is_array($response)) {
             $result = [];
@@ -114,13 +135,15 @@ class Chain
             foreach ($response as $transactionData) {
                 $result[] = new Transaction($transactionData);
             }
+        } elseif ($this->getLastCode() === -32603) {
+            $result = [];
         }
 
         return $result;
     }
 
     /**
-     * Returns new (unsigned!) transaction containing requested inputs and outputs.
+     * Returns new (unsigned!) RawTransaction containing requested inputs and outputs.
      *
      * @param array             $inputs UTXOs array in form of
      *                                  [['txid' => $txId, 'vout' => $vOut],
@@ -159,6 +182,83 @@ class Chain
 
         if ($response !== false && is_array($response)) {
             $result = new Transaction($response);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Signs RawTransaction using given keys.
+     * NOTE: This is using the not yet released RPC method.
+     * TODO: Replace this with signing implementation in PHP.
+     *
+     * @param RawTransaction        $rawTransaction
+     * @param string[]              $keys
+     * @return false|RawTransaction
+     */
+    public function signRawTransaction(RawTransaction $rawTransaction, array $keys)
+    {
+        $result = false;
+
+        $response = $this->request('signrawtxwith',
+            [$rawTransaction->getHexData(), $keys]);
+
+        if ($response !== false && is_array($response)
+            && isset($response['hex']) && isset($response['complete'])) {
+            if ($response['complete']) {
+                $result = new RawTransaction($response['hex']);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Broadcasts given RawTransaction to network.
+     *
+     * @param RawTransaction $rawTransaction
+     * @param bool           $allowHighFees
+     * @return false|string
+     */
+    public function sendRawTransaction(RawTransaction $rawTransaction, $allowHighFees = false)
+    {
+        $result = false;
+
+        $response = $this->request('sendrawtransaction',
+            [$rawTransaction->getHexData(), $allowHighFees]);
+
+        if ($response !== false && is_string($response)) {
+            $result = $response;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns unspent VOut. If given VOut was already spend,
+     * returns null.
+     *
+     * @param $txId
+     * @param $index
+     * @return false|VOut|null
+     */
+    public function getUnspentVOut($txId, $index)
+    {
+        $result = false;
+
+        $response = $this->request('gettxout',
+            [$txId, $index, true]);
+
+        if ($response !== false) {
+            if (is_null($response)) {
+                $result = null;
+            }elseif (is_array($response)) {
+                if (!isset($response['n'])) {
+                    $response['n'] = $index;
+                }
+
+                $result = new VOut($response);
+            }
         }
 
         return $result;

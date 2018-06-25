@@ -22,9 +22,12 @@ class VIn
      */
     public function __construct(array $data)
     {
-        if (!isset($data['txid']) || !isset($data['vout']) || !isset($data['blockheight'])
-            || !isset($data['blockindex'])) {
-            throw new \RuntimeException('Wrong transaction data!');
+        if (!isset($data['blockheight']) || !isset($data['blockindex'])) {
+            throw new \RuntimeException('Missing block data!');
+        }
+
+        if (!isset($data['txid']) && !isset($data['coinbase'])) {
+            throw new \RuntimeException('Missing input source!');
         }
 
         $this->data = $data;
@@ -35,7 +38,23 @@ class VIn
      */
     public function getTxId()
     {
+        if (isset($this->data['coinbase'])) {
+            return 'coinbase';
+        }
+
         return $this->data['txid'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoinbase()
+    {
+        if (isset($this->data['txid'])) {
+            return 'input';
+        }
+
+        return $this->data['coinbase'];
     }
 
     /**

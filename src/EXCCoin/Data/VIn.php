@@ -42,7 +42,11 @@ class VIn
             return 'coinbase';
         }
 
-        return $this->data['txid'];
+        if (isset($this->data['stakebase'])) {
+            return 'stakebase';
+        }
+
+        return strval($this->data['txid']);
     }
 
     /**
@@ -54,14 +58,38 @@ class VIn
             return 'input';
         }
 
-        return $this->data['coinbase'];
+        if (isset($this->data['stakebase'])) {
+            return 'stakebase';
+        }
+
+        return strval($this->data['coinbase']);
     }
 
     /**
-     * @return int
+     * @return string
+     */
+    public function getStakebase()
+    {
+        if (isset($this->data['coinbase'])) {
+            return 'coinbase';
+        }
+
+        if (isset($this->data['txid'])) {
+            return 'input';
+        }
+
+        return strval($this->data['stakebase']);
+    }
+
+    /**
+     * @return int|null
      */
     public function getVOut()
     {
+        if (!isset($this->data['vout'])) {
+            return null;
+        }
+
         return intval($this->data['vout']);
     }
 
@@ -93,5 +121,25 @@ class VIn
         $value = round($this->data['amountin'] * 1e8);
 
         return intval($value);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTree()
+    {
+        if (!isset($this->data['tree'])) {
+            return null;
+        }
+
+        return intval($this->data['tree']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getSequence()
+    {
+        return intval($this->data['sequence']);
     }
 }

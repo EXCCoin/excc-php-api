@@ -398,6 +398,7 @@ class ExtendedKey
 
         Curve::ensureUsableKey(gmp_import($IL));
 
+        /** @noinspection PhpParamsInspection */
         $childKey = gmp_export(gmp_mod(gmp_add(gmp_import($IL), gmp_import($key)), Curve::generator()->getOrder()));
 
         $parentFP = substr(hex2bin(hash('ripemd160', $this->network->hashKey256($this->publicKey()))), 0, 4);

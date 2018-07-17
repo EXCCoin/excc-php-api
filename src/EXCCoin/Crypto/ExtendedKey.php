@@ -23,14 +23,18 @@ class ExtendedKey
      */
     const LEGACY_COIN_TYPE = 0;
 
-    // ExternalBranch is the child number to use when performing BIP0044
-    // style hierarchical deterministic key derivation for the external
-    // branch.
+    /*
+     * ExternalBranch is the child number to use when performing BIP0044
+     * style hierarchical deterministic key derivation for the external
+     * branch.
+     */
     const EXTERNAL_BRANCH = 0;
 
-    // InternalBranch is the child number to use when performing BIP0044
-    // style hierarchical deterministic key derivation for the internal
-    // branch.
+    /*
+     * InternalBranch is the child number to use when performing BIP0044
+     * style hierarchical deterministic key derivation for the internal'
+     * branch.
+     */
     const INTERNAL_BRANCH = 1;
 
     /**
@@ -38,25 +42,33 @@ class ExtendedKey
      */
     const HARDENED_KEY_START = 0x80000000;
 
-    // maxCoinType is the maximum allowed coin type used when structuring
-    // the BIP0044 multi-account hierarchy.  This value is based on the
-    // limitation of the underlying hierarchical deterministic key
-    // derivation.
+    /*
+     * maxCoinType is the maximum allowed coin type used when structuring
+     * the BIP0044 multi-account hierarchy.  This value is based on the
+     * limitation of the underlying hierarchical deterministic key
+     * derivation.
+     */
     const MAX_COIN_TYPE = self::HARDENED_KEY_START - 1;
 
-    // MaxAccountNum is the maximum allowed account number.  This value was
-    // chosen because accounts are hardened children and therefore must
-    // not exceed the hardened child range of extended keys and it provides
-    // a reserved account at the top of the range for supporting imported
-    // addresses.
+    /*
+     * MaxAccountNum is the maximum allowed account number.  This value was
+     * chosen because accounts are hardened children and therefore must
+     * not exceed the hardened child range of extended keys and it provides
+     * a reserved account at the top of the range for supporting imported
+     * addresses.
+     */
     const MAX_ACCOUNT_NUM = self::HARDENED_KEY_START - 2; // 2^31 - 2
 
-    // MinSeedBytes is the minimum number of bytes allowed for a seed to
-    // a master node.
+    /*
+     * MinSeedBytes is the minimum number of bytes allowed for a seed to
+     * a master node.
+     */
     const MIN_SEED_BYTES = 16; // 128 bits
 
-    // MaxSeedBytes is the maximum number of bytes allowed for a seed to
-    // a master node.
+    /*
+     * MaxSeedBytes is the maximum number of bytes allowed for a seed to
+     * a master node.
+     */
     const MAX_SEED_BYTES = 64; // 512 bits
 
     /**

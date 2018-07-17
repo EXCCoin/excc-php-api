@@ -15,10 +15,13 @@ class ExtendedKey
     const BIP44_PURPOSE = 44;
 
     /**
-     * TODO: Change to EXCC type index
-     * Decred coin type index
+     * BIP44 coin type
+     *
+     * Legacy Copay based wallet has been using 0 as coin type
+     * for compatibility this is preserved here. In future this should
+     * be replaced by registered value.
      */
-    const DECRED_COIN_TYPE = 42;
+    const LEGACY_COIN_TYPE = 0;
 
     // ExternalBranch is the child number to use when performing BIP0044
     // style hierarchical deterministic key derivation for the external
@@ -477,7 +480,7 @@ class ExtendedKey
      *
      * @return ExtendedKey
      */
-    public function deriveCoinTypeKey($coinType = self::DECRED_COIN_TYPE)
+    public function deriveCoinTypeKey($coinType = self::LEGACY_COIN_TYPE)
     {
         if ($coinType > self::MAX_COIN_TYPE) {
             throw new \InvalidArgumentException('Invalid coin type.');

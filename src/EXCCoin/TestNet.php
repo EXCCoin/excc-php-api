@@ -11,10 +11,11 @@ class TestNet extends ExchangecoinNetwork
     const CHAIN_URL = "https://localhost:19109";
     const NOTIFIER_URL = "http://localhost:19119";
 
-    const HD_PUBLIC_KEY_ID      = "\x04\x35\x87\xd1"; // tpub
     const HD_PRIVATE_KEY_ID     = "\x04\x35\x83\x97"; // tprv
+    const HD_PUBLIC_KEY_ID      = "\x04\x35\x87\xd1"; // tpub
+
     const PUB_KEY_HASH_ADDR_ID  = "\x0f\x21"; // Ts
-    const WIF_PRIVATE_KEY_ID    = "\x23\x0e"; // Pt
+    const WIF_PRIVATE_KEY_ID    = "\xef"; // 9 (uncompressed) or c (compressed)
 
     /**
      * @return TestNet

@@ -104,7 +104,7 @@ class ExtendedKey
     /**
      * @var string
      */
-    private $parentFP = '0000';
+    private $parentFP = "\x00\x00\x00\x00";
 
     /**
      * @var int

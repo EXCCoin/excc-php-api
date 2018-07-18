@@ -401,7 +401,7 @@ class ExtendedKey
         /** @noinspection PhpParamsInspection */
         $childKey = gmp_export(gmp_mod(gmp_add(gmp_import($IL), gmp_import($key)), Curve::generator()->getOrder()));
 
-        $parentFP = substr(hex2bin(hash('ripemd160', $this->network->hashKey256($this->publicKey()))), 0, 4);
+        $parentFP = substr(hash('ripemd160', $this->network->hashKey256($this->publicKey()), true), 0, 4);
 
         return new ExtendedKey($childKey, $IR, $this->depth + 1, $parentFP, $index, $this->network, true);
     }
@@ -437,7 +437,7 @@ class ExtendedKey
                 ->add(Curve::unserializePoint($key))
         );
 
-        $parentFP = substr(hex2bin(hash('ripemd160', $this->network->hashKey256($key))), 0, 4);
+        $parentFP = substr(hash('ripemd160', $this->network->hashKey256($key), true), 0, 4);
 
         return new ExtendedKey($childKey, $IR, $this->depth + 1, $parentFP, $index, $this->network);
     }

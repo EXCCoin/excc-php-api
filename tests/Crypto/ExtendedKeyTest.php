@@ -200,50 +200,50 @@ class ExtendedKeyTest extends TestCase
         $master = ExtendedKey::newMaster($seed, MainNet::instance());
 
         $this->assertEquals(
-            'dprv3hCznBesA6jBufbh3Y9f5cmEa3rmeNMnr7tzTiEVbYrXmTXgnD9ZrqUPzANojB19ntJqCydHVgcwVne72cd5TJPrr5CnmVxUaUbkA3BcByq',
+            'xprv9s21ZrQH143K4JEvtM6X3HZnqSdGYACGFFoBLDEKog2FnN12aiHFg2y2P5awhRReY3Y9T1wvEFMPJEHpgrVLbnNHLXSqsoWjjFnzYzj5hPb',
             $master->__toString()
         );
 
         $purpose = $master->hardenedChildKey(44);
         $this->assertEquals(
-            'dprv3kvp7kdbp529Dm7YB4Usb3nq4z85ac3a75qa6d3Wjhr1Yxtyt3YjbvpSbZJY5e8AVooC6VKDTpAjkPaTifxc7ZtLU78smZE7qZYQKEqCnCh',
+            'xprv9uz3rri23NBpVq5HEMTeEsk6A4p2RkwjWc7fmar2tdYtTMmVohK1QhTFLwt3ei852bvZcsXbdTPs6KZP3ZGhYBKH3o7YMK52z51ARzXKNAW',
             $purpose->__toString()
         );
 
-        $coinType = $purpose->hardenedChildKey(20);
+        $coinType = $purpose->hardenedChildKey(0);
         $this->assertEquals(
-            'dprv3nar8Jwt7u8Tfh6Q5hZrz1etQyug1p464iKJA4f3pBKWpstdDAn4gttgLW5KFn6hEYvqNH6BJMRgh6ybyYHUbFC98U63RyMhPfrmHfa3K25',
+            'xprv9x34Upta7MN4PHAoxmk3jv2m7cx9eFL3PbaPsgmqxxzyF547rj6y2zTYvV7YSd2ZNSXbcUGfqCyENYktuCNYERPgNJ22UQyxExh4YyisVfX',
             $coinType->__toString()
         );
 
-        $account = $coinType->hardenedChildKey(20);
+        $account = $coinType->hardenedChildKey(0);
         $this->assertEquals(
-            'dprv3oH7V64hFGP5UeYm5eTyDtzz2QyZqEHFkh8HLfjq62T2FyVvzdEhQMhg6iijuduJDndBVscHtURUMwBPrDQ4ckQ6PXgGJBHteRv6k3Nnw9W',
+            'xprv9yAsW3WLYx2y8tG1nLw2Sgo59gME87htuv9vdWgubgWCgvqpL65QeTQ8Cbw6ZS1k2dv7AJpFYb5AgZoyw9KUpXB9H4vmQDn4tzEPxHiVG6E',
             $account->__toString()
         );
 
         $account0Pri = $account->privateChildKey(0);
         $this->assertEquals(
-            'dprv3qL8MJLw4yuPBSHWXHvgxgcC9SjEtKcLJgEpZr1k3AyGhHymTWHs5LPvEjJk3yXjt2GkufkQZ6NHurjuJ6S1aHLqx8XxxeRsXqDuEnHJQ64',
+            'xprvA17rceZUT9YGv9Z8RQCLtiLsD3NqM1NaizfJuPCXHYy1Q98HXeTiQzhvsjLCRvhjhdzW2TQrVZaU4LkvmqVRYs54roLSMgYujFFK5gpRzGj',
             $account0Pri->__toString()
         );
 
         $account0Pub = $account->publicChildKey(0);
         $this->assertEquals(
-            'dpubZH8DiRuE9MyB5rBGmoz3UuQSmTHWKGCQWDs9Jkx73FZuQr1QLTdU9uuwPRbEgEnMYriY9SUr4XshamuoXZC121HVqPXBSFvE57gG9pZd2Ts',
+            'xpub6E7D2A6NHX6a8ddbXRjMFrHbm5DKkU6S6Dauhmc8qtVzGwTS5Bmxxo2Qj2gAV6zjYNE1i9tNrxV3qH6MrwSYby1NoKTdL4RkRhQXVUmKg7p',
             $account0Pub->__toString()
         );
 
         $account0Pub = $account0Pri->neuter();
         $this->assertEquals(
-            'dpubZH8DiRuE9MyB5rBGmoz3UuQSmTHWKGCQWDs9Jkx73FZuQr1QLTdU9uuwPRbEgEnMYriY9SUr4XshamuoXZC121HVqPXBSFvE57gG9pZd2Ts',
+            'xpub6E7D2A6NHX6a8ddbXRjMFrHbm5DKkU6S6Dauhmc8qtVzGwTS5Bmxxo2Qj2gAV6zjYNE1i9tNrxV3qH6MrwSYby1NoKTdL4RkRhQXVUmKg7p',
             $account0Pub->__toString()
         );
     }
 
     public function test_default_wallet_layout()
     {
-        $masterKey = "dprv3hCznBesA6jBushjx7y9NrfheE4ZshnaKYtsoLXefmLPzrXgEiXkdRMD6UngnmBYZzgNhdEd4K3PidxcaCiR6HC9hmpj8FcrP4Cv7zBwELA";
+        $masterKey = "xprv9s21ZrQH143K4WLynvv1LXUFucq4mVd3igo4fqXUstW81m123DfSScqqVPzpm1c3K9ugwfZFnsmqX5cLESagEmAaCE4nEZB7XqQAWvCafNk";
 
         // m
         $master = ExtendedKey::fromString($masterKey);
@@ -263,8 +263,8 @@ class ExtendedKeyTest extends TestCase
         // m/0H/1/0
         $acct0Int0 = $acct0Int->privateChildKey(0);
 
-        $this->assertEquals('DshMmJ3bfvMDdk1mkXRD3x5xDuPwSxoYGfi', $acct0Ext10->getAddress());
-        $this->assertEquals('DsoTyktAyEDkYpgKSex6zx5rrkFDi2gAsHr', $acct0Int0->getAddress());
+        $this->assertEquals('22u8zdLEwp6E2CktDaiB1cquihbAVpFjrywx', $acct0Ext10->getAddress());
+        $this->assertEquals('22tz1yMzaeDBcMB1E7pmaMN5mVaCRGH8vq26', $acct0Int0->getAddress());
 
         // Neuter the master key to generate a master public extended key.  This
         // gives the path:
@@ -274,7 +274,7 @@ class ExtendedKeyTest extends TestCase
         $this->assertInstanceOf(MainNet::class, $master->getNetwork());
 
         $this->assertEquals(
-            'dpubZ9169KDAEUnypHbWCe2Vu5TxGEcqJeNeX6XCYFU1fqw2iQZK7fsMhzsEFArbLmyUdprUw9aXHneUNd92bjc31TqC6sUduMY6PK2z4JXDS8j',
+            'xpub661MyMwAqRbcGzRStxT1hfQzTefZAxLu5uifUDw6SE36tZLAakygzRAKLeQDEW8Hh85GjGJiXNPwFm1HBPT7rR4pTVagvyMcrerHC1Jx4yu',
             $masterNeuter->__toString()
         );
     }

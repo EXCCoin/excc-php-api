@@ -16,9 +16,9 @@ class NetworkTest extends TestCase
         $seed = hex2bin('000102030405060708090a0b0c0d0e0f');
         $master = ExtendedKey::newMaster($seed, $testnet);
 
-        $this->assertEquals('tprvZUo1ZuEfLLFWfAYiMVaoDV1EeLmbSRuNzaSh7F4awft7dm8nHfFAFZyobWQyV8Qr26r8M2CmNw6nEb35HaECWFGy1vzx2ZGdyfBeaaHudoi', (string) $master);
-        $this->assertEquals('tpubVhnMyQmZAhoosedBTX7oacwyCNc5qtdEMoNHudUCW1R6WZTvqCZQoNJHSn4H11puwdk4qyDv2ET637EDap4r8HH3odjBC5nEjmnPcsDfLwm', (string) $master->neuter());
-        $this->assertEquals('TsiBhMy6LYKGkHeWbPYEPFMu9VgqwRgkt8T', $master->getAddress());
+        $this->assertEquals('tprvZUo1ZuEfLLFWfAYiMVaoDV1EeLmbSRuNzaSh7F4awft7dm8nHfFAFZyobWQyV8Qr26r8M2CmNw6nEb35HaECWFGy1vzx2ZGdyfBeacrhh3a', (string) $master);
+        $this->assertEquals('tpubVhnMyQmZAhoosedBTX7oacwyCNc5qtdEMoNHudUCW1R6WZTvqCZQoNJHSn4H11puwdk4qyDv2ET637EDap4r8HH3odjBC5nEjmnPcvoqJyL', (string) $master->neuter());
+        $this->assertEquals('TsVnSo9TUfZh6vH6QWjek3YP8dGvfYQGnCZ', $master->getAddress());
     }
 
     public function test_network_factory()
@@ -56,7 +56,7 @@ class NetworkTest extends TestCase
         $this->expectExceptionMessage('Wrong checksum on encoding extended key!');
 
         $network = TestNet::instance();
-        $network->extendedKeyBase58Decode('dprv3hCznBesA6jBushjD7y9NrfheE4ZshnaKYtsoLXefmLPzrXgEiXkdRMD6UngnmBYZzgNhdEd4K3PidxcaCiR6HC9hmpj8FcrP4Cv7zBwELA');
+        $network->extendedKeyBase58Decode('xprv9s21ZrQH143K4WLynvv1LXUFucq4mVd3igo4fqXUstW81m123DfSScqqVPzpm1c3K9ugwfZFnsmqX5cLESagEmAaCC4nEZB7XqQAWvCafNk');
     }
 
     public function test_extended_key_wrong_encode()

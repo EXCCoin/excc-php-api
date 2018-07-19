@@ -7,14 +7,15 @@ use EXCCoin\Client\Notifier as NotifierClient;
 
 class MainNet extends ExchangecoinNetwork
 {
-    const DATA_URL = "https://explorer.dcrdata.org";
+    const DATA_URL = "http://explorer2.excc.co";
     const CHAIN_URL = "https://localhost:9109";
     const NOTIFIER_URL = "http://localhost:9119";
 
-    const HD_PUBLIC_KEY_ID      = "\x02\xfd\xa9\x26"; // dpub
-    const HD_PRIVATE_KEY_ID     = "\x02\xfd\xa4\xe8"; // dprv
-    const PUB_KEY_HASH_ADDR_ID  = "\x07\x3f"; // Ds
-    const WIF_PRIVATE_KEY_ID    = "\x22\xde"; // Pm
+    const HD_PRIVATE_KEY_ID     = "\x04\x88\xad\xe4"; // xprv
+    const HD_PUBLIC_KEY_ID      = "\x04\x88\xb2\x1e"; // xpub
+
+    const PUB_KEY_HASH_ADDR_ID  = "\x21\xb9"; // 22
+    const WIF_PRIVATE_KEY_ID    = "\x80"; // 5 (uncompressed) or K (compressed)
 
     /**
      * @return MainNet

@@ -10,17 +10,15 @@ echo sprintf("Seed hex: %s\n", bin2hex($seed));
 
 // Generate HD master key
 $master = \EXCCoin\Crypto\ExtendedKey::newMaster($seed, $testnet);
-
 echo sprintf("Master HD key: %s\n\n", $master);
 
 // Default account HD private key
 $defaultAccountPrivateKey = $master
-    ->hardenedChildKey(44)
-    ->hardenedChildKey(42)
-    ->hardenedChildKey(0);
+    ->deriveCoinTypeKey() /* NOTE: derives *both* BIP44 purpose and coin type */
+    ->deriveAccountKey(0);
 
 // Default account HD public key
-$defaultAccountPublicKey = $master->neuter();
+$defaultAccountPublicKey = $defaultAccountPrivateKey->neuter();
 
 echo sprintf("Default account HD private key: %s\n", $defaultAccountPrivateKey);
 echo sprintf("Default account HD public key: %s\n", $defaultAccountPublicKey);

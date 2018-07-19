@@ -82,7 +82,7 @@ abstract class ExchangecoinNetwork implements NetworkInterface
      */
     public function hashKey256($key)
     {
-        return hex2bin(Hash::blake($key));
+        return hash('sha256', $key, true);
     }
 
     /**

@@ -102,6 +102,14 @@ class Transaction
     }
 
     /**
+     * @return int
+     */
+    public function countVOuts()
+    {
+        return count($this->data['vout']);
+    }
+
+    /**
      * @param $index
      * @return null|VOut
      */

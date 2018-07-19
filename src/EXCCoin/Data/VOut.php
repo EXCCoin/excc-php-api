@@ -61,6 +61,10 @@ class VOut
      */
     public function getAddresses()
     {
+        if (!isset($this->data['scriptPubKey']['addresses'])) {
+            return [];
+        }
+
         return $this->data['scriptPubKey']['addresses'];
     }
 
@@ -69,6 +73,30 @@ class VOut
      */
     public function countAddresses()
     {
+        if (!isset($this->data['scriptPubKey']['addresses'])) {
+            return 0;
+        }
+
         return count($this->data['scriptPubKey']['addresses']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->data['scriptPubKey']['type'];
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getRequestedSignaturesCount()
+    {
+        if (!isset($this->data['scriptPubKey']['reqSigs'])) {
+            return null;
+        }
+
+        return intval($this->data['scriptPubKey']['reqSigs']);
     }
 }

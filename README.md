@@ -9,7 +9,7 @@ Add composer package to your project
 composer require EXCCoin/excc-php-api
 ```
 
-Make sure [GMP PHP extesion](http://php.net/manual/en/book.gmp.php) is installed. In ubuntu:
+Make sure [GMP PHP extesion](http://php.net/manual/en/book.gmp.php) is installed. In Debian/Ubuntu:
 ```bash
 sudo apt install php7.0-gmp
 ```
@@ -33,11 +33,11 @@ include __DIR__.'/../vendor/autoload.php';
 
 ## Usage examples
 
-Library have wide functionality, so you could find usage exmaples in `examples` library or looking into PHPUnit tests.
+Library have wide functionality, so you could find usage examples in `examples` library or looking into PHPUnit tests.
 
 ### Generating seed
 
-First of all we need to get Network intance to start working with library.
+First of all we need to get Network instance to start working with library.
 
 ```php
 $testnet = \EXCCoin\TestNet::instance();
@@ -49,7 +49,7 @@ $mainnet = \EXCCoin\MainNet::instance();
 ```
 
 Now lets generate a seed, that will be also verified for usage on testnet.
-Defaut account and branch address will be derivded to verify the seed.
+Default account and branch address will be derived to verify the seed.
 
 ```php
 $seed = \EXCCoin\Crypto\ExtendedKey::generateSeed($testnet);
@@ -73,7 +73,7 @@ Derives HD private child key from parent HD private key, returns `ExtendedKey` o
 
 Derives HD hardened child key from parent HD private key, returns `ExtendedKey` object.
 
-Can't be dervied from HD public key.
+Can't be derived from HD public key.
 
 #### `ExtendedKey::publicChildKey($index)`
 
@@ -85,17 +85,17 @@ Verify that extended key is public, returns `ExtendedKey` object.
 
 ### Default account
 
-Using this basic methods we can derive default account HD private and public keys accourding to [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
+Using this basic methods we can derive default account HD private and public keys according to [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
 
-HD path (m\44'\42'\0')
+HD path (m\44'\0'\0')
 
 ```php
 $defaultAccountPrivateKey = $master
     ->hardenedChildKey(44)
-    ->hardenedChildKey(42)
+    ->hardenedChildKey(0)
     ->hardenedChildKey(0);
 
-$defaultAccountPublicKey = $master->neuter();
+$defaultAccountPublicKey = $defaultAccountPrivateKey->neuter();
 ```
 
 `ExtendedKey` implements `__toString()` method, so you can easily get Base58 representation of HD key.
@@ -105,7 +105,7 @@ echo sprintf("Default account HD private key: %s\n", $defaultAccountPrivateKey);
 echo sprintf("Default account HD public key: %s\n", $defaultAccountPublicKey);
 ```
 
-From default account we can derive 0 branch and 0 index and the get default address.
+From default account we can derive 0 branch (external branch) and 0 index and get default address.
 
 ```php
 $defaultAddress = $defaultAccountPublicKey
@@ -115,5 +115,3 @@ $defaultAddress = $defaultAccountPublicKey
 
 echo sprintf("Default address: %s\n", $defaultAddress);
 ```
-
-

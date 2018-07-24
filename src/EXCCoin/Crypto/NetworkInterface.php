@@ -67,6 +67,15 @@ interface NetworkInterface
     public function base58EncodeAddress($key);
 
     /**
+     * Get decoded address
+     *
+     * @param $address
+     * @return string
+     * @throws \Exception
+     */
+    public function base58DecodeAddress($address);
+
+    /**
      * Get base58 encoded private key.
      *
      * @param string $key

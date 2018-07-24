@@ -69,6 +69,25 @@ abstract class ExchangecoinNetwork implements NetworkInterface
     /**
      * @inheritdoc
      */
+    public function base58DecodeAddress($address)
+    {
+        $decoded = static::base58()->decode($address);
+
+        $payload = substr($decoded, 0, -4);
+        $checksum = substr($decoded, -4);
+
+        $calculatedChecksum = $this->base58Checksum($payload);
+
+        if ($checksum !== $calculatedChecksum) {
+            throw new \InvalidArgumentException('Wrong checksum on address decoding');
+        }
+
+        return $decoded;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function base58EncodePrivateKey($key)
     {
         $payload = $this->WIFPrivKeyId()."\x00".$key;

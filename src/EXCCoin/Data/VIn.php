@@ -22,12 +22,15 @@ class VIn
      */
     public function __construct(array $data)
     {
-        if (!isset($data['blockheight']) || !isset($data['blockindex'])) {
-            throw new \RuntimeException('Missing block data!');
+        if (!isset($data['txid']) && !isset($data['coinbase']) && !isset($this->data['stakebase'])) {
+            throw new \RuntimeException('Missing input source!');
         }
 
-        if (!isset($data['txid']) && !isset($data['coinbase'])) {
-            throw new \RuntimeException('Missing input source!');
+        /* coinbase and stakebase vins will not have a coresponding block data */
+        if (!isset($data['coinbase']) && !isset($this->data['stakebase'])) {
+            if (!isset($data['blockheight']) || !isset($data['blockindex'])) {
+                throw new \RuntimeException('Missing block data!');
+            }
         }
 
         $this->data = $data;
@@ -94,18 +97,26 @@ class VIn
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getBlockHeight()
     {
+        if (!isset($this->data['blockheight'])) {
+            return null;
+        }
+
         return intval($this->data['blockheight']);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getBlockIndex()
     {
+        if (!isset($this->data['blockindex'])) {
+            return null;
+        }
+
         return intval($this->data['blockindex']);
     }
 

@@ -30,3 +30,10 @@ $defaultAddress = $defaultAccountPublicKey
     ->getAddress();
 
 echo sprintf("Default address: %s\n", $defaultAddress);
+
+$privKey = $defaultAccountPrivateKey
+    ->privateChildKey(0)
+    ->privateChildKey(0)
+    ->privateKey();
+
+echo sprintf("Default address private key: %s\n", $testnet->base58EncodePrivateKey($privKey));

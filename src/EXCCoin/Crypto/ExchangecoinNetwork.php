@@ -90,8 +90,8 @@ abstract class ExchangecoinNetwork implements NetworkInterface
      */
     public function base58EncodePrivateKey($key)
     {
-        $payload = $this->WIFPrivKeyId()."\x00".$key;
-        $checksum = substr($this->hashKey256($payload), 0, 4);
+        $payload = $this->WIFPrivKeyId().$key."\x01";
+        $checksum = $this->base58Checksum($payload);
 
         return $this->base58()->encode($payload.$checksum);
     }

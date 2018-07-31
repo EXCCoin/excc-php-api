@@ -77,6 +77,24 @@ class Chain
     }
 
     /**
+     * Returns chain height.
+     *
+     * @return false|int
+     */
+    public function getChainHeight()
+    {
+        $result = false;
+
+        $response = $this->request('getinfo');
+
+        if ($response !== false && is_array($response) && isset($response['blocks'])) {
+            $result = intval($response['blocks']);
+        }
+
+        return $result;
+    }
+
+    /**
      * Returns header of requested block.
      *
      * @param                     $blockHash

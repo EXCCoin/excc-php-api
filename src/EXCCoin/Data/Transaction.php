@@ -73,11 +73,34 @@ class Transaction
      */
     public function getConfirmations()
     {
-        if (isset($this->data['confirmations'])) {
-            return intval($this->data['confirmations']);
+        if (!isset($this->data['confirmations'])) {
+            return 0;
         }
 
-        return 0;
+        return intval($this->data['confirmations']);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getBlockHash()
+    {
+        if (!isset($this->data['blockhash'])) {
+            return null;
+        }
+
+        return strval($this->data['blockhash']);
+    }
+
+    public function getBlockTime()
+    {
+        if (!isset($this->data['blocktime'])) {
+            return null;
+        }
+
+        $time = new \DateTime();
+        $time->setTimestamp($this->data['blocktime']);
+        return $time;
     }
 
     /**

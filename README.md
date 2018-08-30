@@ -1,6 +1,7 @@
 # EXCC (ExchangeCoin) PHP API
 
-PHP API for the [ExchangeCoin](https://excc.co) Cryptocurrency
+PHP API for the [ExchangeCoin](https://excc.co) Cryptocurrency. Forked from
+[decred-php-api](https://github.com/decred/decred-php-api).
 
 ## Installation
 

@@ -44,6 +44,9 @@ trait CallsRPC
             'base_uri'          => $url,
             'verify'            => false, // TODO: this really should not be default.
             'allow_redirects'   => false,
+            'curl'              => [
+                CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
+            ],
         ], $options));
     }
 

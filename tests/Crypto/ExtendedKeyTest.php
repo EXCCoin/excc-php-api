@@ -8,24 +8,17 @@ use EXCCoin\MainNet;
 class ExtendedKeyTest extends TestCase
 {
 
-    public function test_generate_seed()
+    public function test_generate_entropy()
     {
-        $network = GeneralNetwork::instance();
-        $this->assertEquals(32, strlen(ExtendedKey::generateSeed($network)));
-        $this->assertEquals(16, strlen(ExtendedKey::generateSeed($network, 16)));
-        $this->assertEquals(64, strlen(ExtendedKey::generateSeed($network, 64)));
+        $this->assertEquals(32, strlen(ExtendedKey::generateEntropy()));
+        $this->assertEquals(16, strlen(ExtendedKey::generateEntropy(16)));
+        $this->assertEquals(64, strlen(ExtendedKey::generateEntropy(64)));
     }
 
-    public function test_generate_seed_wrong_length()
+    public function test_generate_entropy_wrong_length()
     {
-        $this->expectExceptionMessage('Invalid seed length. Length should be between 16 and 64 bytes (32 recommended).');
-        ExtendedKey::generateSeed(GeneralNetwork::instance(), 2);
-    }
-
-    public function test_generate_new_master_seed_wrong_size()
-    {
-        $this->expectExceptionMessage('Invalid seed length. Length should be between 16 and 64 bytes (32 recommended).');
-        ExtendedKey::newMaster('22', GeneralNetwork::instance());
+        $this->expectExceptionMessage('Invalid entropy length. Length should be between 16 and 64 bytes (32 recommended).');
+        ExtendedKey::generateEntropy(2);
     }
 
     public function test_bip32_vector1()

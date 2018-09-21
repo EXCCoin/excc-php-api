@@ -135,7 +135,7 @@ class ExtendedKey
         // Per [BIP32], the entropy must be in range [16, 64].
         if (($length < static::MIN_ENTROPY_BYTES) || ($length > static::MAX_ENTROPY_BYTES)) {
             throw new \InvalidArgumentException(
-                'Invalid seed length. Length should be between 16 and 64 bytes (32 recommended).'
+                'Invalid entropy length. Length should be between 16 and 64 bytes (32 recommended).'
             );
         }
 

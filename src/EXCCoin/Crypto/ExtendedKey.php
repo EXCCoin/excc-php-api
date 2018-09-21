@@ -23,14 +23,14 @@ class ExtendedKey
      */
     const LEGACY_COIN_TYPE = 0;
 
-    /*
+    /**
      * ExternalBranch is the child number to use when performing BIP0044
      * style hierarchical deterministic key derivation for the external
      * branch.
      */
     const EXTERNAL_BRANCH = 0;
 
-    /*
+    /**
      * InternalBranch is the child number to use when performing BIP0044
      * style hierarchical deterministic key derivation for the internal'
      * branch.
@@ -42,7 +42,7 @@ class ExtendedKey
      */
     const HARDENED_KEY_START = 0x80000000;
 
-    /*
+    /**
      * maxCoinType is the maximum allowed coin type used when structuring
      * the BIP0044 multi-account hierarchy.  This value is based on the
      * limitation of the underlying hierarchical deterministic key
@@ -50,7 +50,7 @@ class ExtendedKey
      */
     const MAX_COIN_TYPE = self::HARDENED_KEY_START - 1;
 
-    /*
+    /**
      * MaxAccountNum is the maximum allowed account number.  This value was
      * chosen because accounts are hardened children and therefore must
      * not exceed the hardened child range of extended keys and it provides
@@ -59,22 +59,22 @@ class ExtendedKey
      */
     const MAX_ACCOUNT_NUM = self::HARDENED_KEY_START - 2; // 2^31 - 2
 
-    /*
-     * MinSeedBytes is the minimum number of bytes allowed for a seed to
+    /**
+     * MinEntropyBytes is the minimum number of bytes allowed for a seed to
      * a master node.
      */
-    const MIN_SEED_BYTES = 16; // 128 bits
-
-    /*
-     * MaxSeedBytes is the maximum number of bytes allowed for a seed to
-     * a master node.
-     */
-    const MAX_SEED_BYTES = 64; // 512 bits
+    const MIN_ENTROPY_BYTES = 16; // 128 bits
 
     /**
-     * Recommended seed length
+     * MaxEntropyBytes is the maximum number of bytes allowed for a seed to
+     * a master node.
      */
-    const RECOMMENDED_SEED_BYTES = 32;
+    const MAX_ENTROPY_BYTES = 64; // 512 bits
+
+    /**
+     * Recommended entropy length
+     */
+    const RECOMMENDED_ENTROPY_BYTES = 32;
 
     /**
      * Master key
@@ -121,33 +121,27 @@ class ExtendedKey
      */
     private $isPrivate;
 
+
     /**
-     * Generate verified usable seed.
+     * Generate secure entropy.
      *
-     * @param NetworkInterface $network
-     * @param int              $length
+     * @param int $length
      *
-     * @return mixed
+     * @return string
      * @throws \Exception If an appropriate source of randomness cannot be found.
      */
-    public static function generateSeed(NetworkInterface $network, $length = self::RECOMMENDED_SEED_BYTES)
+    public static function generateEntropy($length = self::RECOMMENDED_ENTROPY_BYTES)
     {
-        // Per [BIP32], the seed must be in range [16, 64].
-        if (($length < static::MIN_SEED_BYTES) || ($length > static::MAX_SEED_BYTES)) {
+        // Per [BIP32], the entropy must be in range [16, 64].
+        if (($length < static::MIN_ENTROPY_BYTES) || ($length > static::MAX_ENTROPY_BYTES)) {
             throw new \InvalidArgumentException(
                 'Invalid seed length. Length should be between 16 and 64 bytes (32 recommended).'
             );
         }
 
-        $seed = random_bytes($length);
+        $entropy = random_bytes($length);
 
-        while (!static::verifySeed($seed, $network)) {
-            // @codeCoverageIgnoreStart
-            $seed = random_bytes($length);
-            // @codeCoverageIgnoreEnd
-        }
-
-        return $seed;
+        return $entropy;
     }
 
     /**
@@ -185,13 +179,6 @@ class ExtendedKey
      */
     public static function newMaster($seed, NetworkInterface $network)
     {
-        // Per [BIP32], the seed must be in range [16, 64].
-        if ((strlen($seed) < static::MIN_SEED_BYTES) || (strlen($seed) > static::MAX_SEED_BYTES)) {
-            throw new \InvalidArgumentException(
-                'Invalid seed length. Length should be between 16 and 64 bytes (32 recommended).'
-            );
-        }
-
         $I = hash_hmac('sha512', $seed, static::MASTER_KEY, true);
         $IL = substr($I, 0, (strlen($I) / 2));
         $IR = substr($I, -(strlen($I) / 2));

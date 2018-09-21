@@ -3,8 +3,21 @@ include __DIR__.'/../vendor/autoload.php';
 
 $testnet = \EXCCoin\TestNet::instance();
 
-// Generate seed for test net
-$seed = \EXCCoin\Crypto\ExtendedKey::generateSeed($testnet);
+// Generate entropy
+$entropy = \EXCCoin\Crypto\ExtendedKey::generateEntropy(16);
+
+// Generate mnemonic
+$bip39 = new \EXCCoin\Utility\BIP39();
+$mnemonic = $bip39->encode($entropy);
+
+echo sprintf("Wallet mnemonic: %s\n", implode(' ', $mnemonic));
+
+// Decode mnemonic to seed
+$seed = $bip39->decode($mnemonic);
+
+if (!\EXCCoin\Crypto\ExtendedKey::verifySeed($seed, $testnet)) {
+    die("Invalid seed\n");
+}
 
 echo sprintf("Seed hex: %s\n", bin2hex($seed));
 

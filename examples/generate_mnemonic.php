@@ -9,14 +9,19 @@ use EXCCoin\Utility\BIP39;
 
 include __DIR__.'/../vendor/autoload.php';
 
-$testnet = \EXCCoin\TestNet::instance();
+// Generate entropy
+$entropy = \EXCCoin\Crypto\ExtendedKey::generateEntropy();
 
-// Generate seed for test net
-$seed = \EXCCoin\Crypto\ExtendedKey::generateSeed($testnet);
-
+/* encode to mnemonic */
 $bip39 = new BIP39('en');
+$words = $bip39->encode($entropy);
 
-$words = $bip39->encode($seed);
+/* decode seed from mnemonic */
+$seed = $bip39->decode($words);
+
+if (!\EXCCoin\Crypto\ExtendedKey::verifySeed($seed, \EXCCoin\TestNet::instance())) {
+    die("Invalid seed\n");
+}
 
 /*
  * for convenience format output like exccwallet
